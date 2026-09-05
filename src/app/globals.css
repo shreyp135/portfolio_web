@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-manrope);
+
+  --color-paper: #0e0d12;
+  --color-ink: #100e14;
+  --color-line: rgba(16, 14, 20, 0.32);
+  --color-line-soft: rgba(16, 14, 20, 0.16);
+  --color-rail: #17141d;
+  --color-cream: #f6efe4;
+}
+
+:root {
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --rail-w: 340px;
+  --rail-dock-w: 4.5rem;
+}
+
+* {
+  border-color: var(--color-line-soft);
+}
+
+html,
+body {
+  background: var(--color-ink);
+}
+
+body {
+  color: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-cream);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  color: #0a0910;
+}
+
+/* ---------- Shared page grid ---------- */
+/* Every section reuses the exact same column template so the vertical
+   rule lands at an identical x-position from the hero to the footer,
+   and lines up with the nav rail once it docks on scroll.
+
+   A permanent left inset (--rail-dock-w) is reserved on every section so
+   the docked nav rail always has clear, empty space to sit in — content
+   never has to shift when the nav docks/undocks, and there's a real gap
+   between the rail and the page's own text instead of the two touching. */
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .page-grid {
+    grid-template-columns: var(--rail-w) 1px minmax(0, 1fr);
+    padding-left: var(--rail-dock-w);
+  }
+}
+
+.page-grid > .grid-line {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .page-grid > .grid-line {
+    display: block;
+    background: var(--color-line);
+  }
+}
+
+/* ---------- Gradient mesh backgrounds ---------- */
+/* One continuous colour journey down the page: each section's gradient
+   begins where the previous one ends, so boundaries read as a single
+   travelling field rather than disconnected blocks. */
+
+.mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.mesh::before,
+.mesh::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+}
+
+.mesh-hero {
+  background: linear-gradient(180deg, #f9e6e9 0%, #f2c9d7 55%, #e6b3d3 100%);
+}
+.mesh-hero::before {
+  background:
+    radial-gradient(40% 44% at 16% 20%, #fdf1e8 0%, transparent 62%),
+    radial-gradient(46% 52% at 84% 78%, #cf8cc4 0%, transparent 66%);
+  animation: drift-a 30s var(--ease-out-quart) infinite alternate;
+}
+.mesh-hero::after {
+  background: radial-gradient(42% 46% at 60% 12%, #f0a8bd 0%, transparent 60%);
+  animation: drift-b 24s var(--ease-out-quart) infinite alternate;
+}
+
+.mesh-about {
+  background: linear-gradient(170deg, #e6b3d3 0%, #eec793 48%, #e0904f 100%);
+}
+.mesh-about::before {
+  background:
+    radial-gradient(48% 52% at 14% 18%, #f3dcae 0%, transparent 60%),
+    radial-gradient(50% 56% at 82% 70%, #d9793d 0%, transparent 66%);
+  animation: drift-a 32s var(--ease-out-quart) infinite alternate;
+}
+.mesh-about::after {
+  background: radial-gradient(38% 44% at 55% 92%, #eaa25c 0%, transparent 60%);
+  animation: drift-b 26s var(--ease-out-quart) infinite alternate;
+}
+
+.mesh-experience {
+  background: linear-gradient(170deg, #e0904f 0%, #d97a5c 42%, #c586ac 100%);
+}
+.mesh-experience::before {
+  background:
+    radial-gradient(46% 50% at 16% 18%, #eeae76 0%, transparent 60%),
+    radial-gradient(48% 54% at 84% 78%, #b06fa0 0%, transparent 66%);
+  animation: drift-a 28s var(--ease-out-quart) infinite alternate;
+}
+.mesh-experience::after {
+  background: radial-gradient(40% 46% at 58% 30%, #d17868 0%, transparent 60%);
+  animation: drift-b 22s var(--ease-out-quart) infinite alternate;
+}
+
+.mesh-projects {
+  background: linear-gradient(170deg, #c586ac 0%, #a97cc0 45%, #5f4970 100%);
+}
+.mesh-projects::before {
+  background:
+    radial-gradient(46% 50% at 18% 20%, #d79fc4 0%, transparent 60%),
+    radial-gradient(50% 56% at 82% 80%, #4c3a5c 0%, transparent 68%);
+  animation: drift-a 30s var(--ease-out-quart) infinite alternate;
+}
+.mesh-projects::after {
+  background: radial-gradient(42% 46% at 55% 55%, #93679e 0%, transparent 62%);
+  animation: drift-b 25s var(--ease-out-quart) infinite alternate;
+}
+
+.mesh-skills {
+  background: linear-gradient(170deg, #5f4970 0%, #2c2233 45%, #100e14 100%);
+}
+.mesh-skills::before {
+  background: radial-gradient(46% 60% at 20% 10%, #4a3a5a 0%, transparent 62%);
+  animation: drift-a 34s var(--ease-out-quart) infinite alternate;
+}
+.mesh-skills::after {
+  background: radial-gradient(40% 50% at 82% 88%, #241c2c 0%, transparent 62%);
+  animation: drift-b 27s var(--ease-out-quart) infinite alternate;
+}
+
+.mesh-contact {
+  background: linear-gradient(170deg, #100e14 0%, #7a3f5a 32%, #d0688a 62%, #a9d3ee 100%);
+}
+.mesh-contact::before {
+  background:
+    radial-gradient(44% 48% at 18% 12%, #5c3350 0%, transparent 58%),
+    radial-gradient(50% 56% at 82% 82%, #8fc9ec 0%, transparent 66%);
+  animation: drift-a 26s var(--ease-out-quart) infinite alternate;
+}
+.mesh-contact::after {
+  background: radial-gradient(42% 46% at 55% 55%, #d9789e 0%, transparent 62%);
+  animation: drift-b 21s var(--ease-out-quart) infinite alternate;
+}
+
+@keyframes drift-a {
+  0% {
+    transform: translate(-4%, -3%) scale(1);
+  }
+  100% {
+    transform: translate(5%, 4%) scale(1.08);
+  }
+}
+
+@keyframes drift-b {
+  0% {
+    transform: translate(3%, 4%) scale(1.04);
+  }
+  100% {
+    transform: translate(-5%, -3%) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mesh::before,
+  .mesh::after {
+    animation: none !important;
+  }
+}
+
+/* ---------- Reusable structural bits ---------- */
+
+.hairline {
+  border-top: 1px solid var(--color-line);
+}
+
+.section-frame {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.arrow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1.5px solid var(--color-ink);
+  padding: 0.7rem 1.25rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  transition:
+    background-color 0.25s var(--ease-out-quart),
+    color 0.25s var(--ease-out-quart);
+}
+
+.arrow-btn:hover {
+  background: var(--color-ink);
+  color: var(--color-cream);
+}
+
+.arrow-btn:hover .arrow-glyph {
+  transform: translateX(3px);
+}
+
+.arrow-glyph {
+  transition: transform 0.25s var(--ease-out-quart);
+}
+
+.arrow-btn.on-dark {
+  border-color: var(--color-cream);
+  color: var(--color-cream);
+}
+
+.arrow-btn.on-dark:hover {
+  background: var(--color-cream);
+  color: var(--color-ink);
+}
+
+.wordmark-ring {
+  border: 1.5px solid var(--color-ink);
+  border-radius: 999px;
+}
+
+.field {
+  border: 1.5px solid var(--color-line);
+  background: transparent;
+  transition: border-color 0.2s var(--ease-out-quart);
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--color-ink);
+  border-width: 2px;
+}
+
+.field.on-dark {
+  border-color: rgba(246, 239, 228, 0.7);
+  background: rgba(16, 14, 20, 0.15);
+}
+
+.field.on-dark:focus {
+  border-color: var(--color-cream);
+}
