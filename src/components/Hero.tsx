@@ -45,7 +45,7 @@ export default function Hero() {
 
           {/* Main Hero Column */}
           <div className="px-6 pb-16 sm:px-10 sm:pb-24">
-            <div className="flex flex-col items-start gap-8 border-b border-line pb-14">
+            <div className="pt-6 flex flex-col items-start gap-8 border-b border-line pb-14">
               <h1 className="w-full max-w-2xl font-serif text-[13vw] font-bold leading-[0.95] tracking-tight text-ink sm:text-7xl lg:text-8xl">
                 <span className="block">Shreyansh</span>
                 <span className="block pl-[3em]">Paliwal</span>
@@ -63,7 +63,7 @@ export default function Hero() {
 
               <div className="flex flex-wrap justify-center gap-3">
                 <a
-                  href="/resume.pdf"
+                  href="https://drive.google.com/file/d/1lZydLGj1vyxeltAv4GXj-2PNJZxwJB1t/view?usp=sharing"
                   target="_blank"
                   rel="noreferrer"
                   className="arrow-btn"
